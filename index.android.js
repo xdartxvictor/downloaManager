@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import DownloadManagerCustom from './downloadmanager';
+import { DeviceEventEmitter } from 'react-native';
 import {
   AppRegistry,
   StyleSheet,
@@ -16,6 +17,13 @@ import {
 } from 'react-native';
 
 export default class DownloadManager extends Component {
+  componentWillMount () {
+    DeviceEventEmitter.addListener('downloadCompleate', function(e: Event) {
+      // handle event.
+      Alert.alert('Download Compleate');
+    });
+  }
+
   onLoginClick() {
     DownloadManagerCustom.download(
       (loginData) => { Alert.alert(`Welcome `);}

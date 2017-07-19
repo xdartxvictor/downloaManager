@@ -11,7 +11,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.security.KeyChainException;
+import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.common.io.ByteSource;
 import com.google.common.io.Files;
 
@@ -274,7 +279,17 @@ public class CustomDownloadManager extends ReactContextBaseJavaModule {
         protected void onPostExecute(String result) {
             Log.d("asd","post execute");
             //refreshView();
+            WritableMap params = Arguments.createMap();
+            sendEvent(reactContext, "downloadCompleate", params);
         }
+    }
+
+    private void sendEvent(ReactContext reactContext,
+                           String eventName,
+                           @Nullable WritableMap params) {
+        reactContext
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, params);
     }
 
 
