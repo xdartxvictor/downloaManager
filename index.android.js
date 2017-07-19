@@ -17,7 +17,7 @@ import {
 
 export default class DownloadManager extends Component {
   onLoginClick() {
-    DownloadManagerCustom.login(
+    DownloadManagerCustom.download(
       (loginData) => { Alert.alert(`Welcome `);}
       //loginData) => { Alert.alert(`Welcome ${loginData.userName}, access token: ${loginData.authToken}, secret access token: ${loginData.authTokenSecret}`);}
     )
